@@ -1,3 +1,8 @@
+# Projet CANSmartyCoffre
+
+Voici un exemple d'implémentation de la classe CANSmartyCoffre dans un programme mbed.:
+
+```cpp
 #if !DEVICE_CAN
 #error [NOT_SUPPORTED] CAN not supported for this target
 #endif
@@ -17,14 +22,13 @@ int main()
 
     while (1) {
         
-        if (true) {
+        if (detection > seuil_min) {
             noeud.SendDetectionSignal();
         }
 
-        if (true){
+        if (deverouillage_OK){
             noeud.SendDisarmedSignal();
         }
-
-        ThisThread::sleep_for(1s);
     }
 }
+```
