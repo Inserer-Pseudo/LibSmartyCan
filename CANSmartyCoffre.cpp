@@ -5,6 +5,9 @@ CANSmartyCoffre::CANSmartyCoffre(CAN& can1, int id_noeud) : commCan(can1) {
 
     // Lance le thread d'émission avec la queue d'événements
     thread.start(callback(&queue, &EventQueue::dispatch_forever));
+
+    // Demarre la reception sur interruption
+    //commCan.attach(callback(this, &CANSmartyCoffre::ReceiveCanMessage), CAN::RxIrq);
 }
 
 CANSmartyCoffre::~CANSmartyCoffre() {
@@ -16,10 +19,10 @@ CANSmartyCoffre::~CANSmartyCoffre() {
 
 bool CANSmartyCoffre::SendCanMessage(CANMessage msg){
     if (commCan.write(msg)) {
-        //printf("ping\n");
+        printf("ping\n");
         return true;
     } else {
-    //printf("ping raté\n");
+    printf("ping raté\n");
     return false;
     }
 }

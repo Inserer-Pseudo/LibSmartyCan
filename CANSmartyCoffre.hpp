@@ -19,6 +19,8 @@ public:
 
     void SendDisarmedSignal();
 
+    void StartListener();
+
     // Complique de recuperer le retour d'un thread en utilisant la queue, à voir + tard
 
 private:
@@ -27,7 +29,7 @@ private:
     Thread thread;
     EventQueue queue;
     int eventID;
-
+    
     bool SendCanMessage(CANMessage);
 
     int id_noeud;
