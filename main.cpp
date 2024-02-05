@@ -1,30 +1,34 @@
+
 #if !DEVICE_CAN
+
 #error [NOT_SUPPORTED] CAN not supported for this target
+
 #endif
-
+ 
 #include "mbed.h"
-
-#include "CANSmartyCoffre.hpp"
-
-CAN can1(MBED_CONF_APP_CAN1_RD, MBED_CONF_APP_CAN1_TD,20000);
-
+ 
+CAN can1(PA_11, PA_12, 20000);
+ 
+char counter = 0;
+ 
 int main()
-{
-    // Constructeur prend l'objet CAN et l'identifiant du noeud (int) exemple 5 pour empreinte
-    CANSmartyCoffre noeud(can1,2);
 
-    noeud.StartPinging();
+{
+
+    CANMessage msg;
 
     while (1) {
-        
-         if (true) {
-             noeud.SendDetectionSignal();
+
+        printf("loop()\n");
+
+        if (can1.read(msg,0)) {
+
+            printf("Message received: %d\n", msg.data[0]);
+
         }
 
-        // if (true){
-        //     noeud.SendDisarmedSignal();
-        // }
+        ThisThread::sleep_for(200);
+ 
+}
 
-        ThisThread::sleep_for(2s);
-    }
 }
