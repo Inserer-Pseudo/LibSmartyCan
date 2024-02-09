@@ -12,7 +12,7 @@
 
 
 /**
- * @class CANSmartyCoffree
+ * @class CANSmartyCoffre
  * @brief Classe pour gérer la communication CAN pour le coffre.
  *
  * Cette classe fournit des méthodes pour envoyer des signaux de détection et de désarmement, ainsi que pour démarrer et arrêter le pinging.
