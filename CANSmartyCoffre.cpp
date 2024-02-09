@@ -1,5 +1,17 @@
+/**
+ * @file CANSmartyCoffre.cpp
+ * @brief Fichier source de la classe CANSmartyCoffre.
+ */
+
 #include "CANSmartyCoffre.hpp"
 
+
+/**
+ * @fn CANSmartyCoffre::CANSmartyCoffre(CAN& can1, int id_noeud)
+ * @brief Constructeur de la classe CANSmartyCoffre.
+ * @param can1 Référence à l'objet CAN utilisé pour la communication.
+ * @param id_noeud Identifiant du noeud.
+ */
 CANSmartyCoffre::CANSmartyCoffre(CAN& can1, int id_noeud) : commCan(can1) {
     this->id_noeud = id_noeud;
 
@@ -10,6 +22,10 @@ CANSmartyCoffre::CANSmartyCoffre(CAN& can1, int id_noeud) : commCan(can1) {
     //commCan.attach(callback(this, &CANSmartyCoffre::ReceiveCanMessage), CAN::RxIrq);
 }
 
+/**
+ * @fn CANSmartyCoffre::~CANSmartyCoffre()
+ * @brief Destructeur de la classe CANSmartyCoffre.
+ */
 CANSmartyCoffre::~CANSmartyCoffre() {
     // Interrompt la queue d'événements, ce qui arrête aussi le thread
     queue.break_dispatch();
@@ -17,16 +33,24 @@ CANSmartyCoffre::~CANSmartyCoffre() {
     thread.join();
 }
 
+/**
+ * @fn bool CANSmartyCoffre::SendCanMessage(CANMessage msg)
+ * @brief Envoie un message CAN.
+ * @param msg Le message CAN à envoyer.
+ * @return true si le message a été envoyé avec succès, false sinon.
+ */
 bool CANSmartyCoffre::SendCanMessage(CANMessage msg){
     if (commCan.write(msg)) {
-        printf("ping\n");
         return true;
     } else {
-    printf("ping raté\n");
-    return false;
+        return false;
     }
 }
 
+/**
+ * @fn void CANSmartyCoffre::StartPinging()
+ * @brief Commence à envoyer des pings périodiques.
+ */
 void CANSmartyCoffre::StartPinging() {
     // Construction du message (trame)
     CANMessage msg;
@@ -41,12 +65,21 @@ void CANSmartyCoffre::StartPinging() {
     eventID = queue.call_every(1000, [this, msg]() { this->SendCanMessage(msg); });
 }
 
+/**
+ * @fn void CANSmartyCoffre::StopPinging()
+ * @brief Arrête d'envoyer des pings périodiques.
+ */
 void CANSmartyCoffre::StopPinging() {
     // Interrompt le pinging periodique
     queue.cancel(eventID);
 }
 
+/**
+ * @fn void CANSmartyCoffre::SendDetectionSignal()
+ * @brief Envoie un signal de détection.
+ */
 void CANSmartyCoffre::SendDetectionSignal() {
+    // Forme le message CAN
     CANMessage msg;
         msg.id = id_noeud+10;
         msg.len = 1;
@@ -54,10 +87,16 @@ void CANSmartyCoffre::SendDetectionSignal() {
         msg.format = CANStandard;
         msg.type = CANData;
 
+    // Demande l'emission du message
     queue.call([this, msg]() { this->SendCanMessage(msg); });
 }
 
+/**
+ * @fn void CANSmartyCoffre::SendDisarmedSignal()
+ * @brief Envoie un signal de désarmement.
+ */
 void CANSmartyCoffre::SendDisarmedSignal() {
+    // Forme le message CAN
     CANMessage msg;
         msg.id = id_noeud+10;
         msg.len = 1;
@@ -65,6 +104,7 @@ void CANSmartyCoffre::SendDisarmedSignal() {
         msg.format = CANStandard;
         msg.type = CANData;
 
+    // Demande l'emission du message
     queue.call([this, msg]() { this->SendCanMessage(msg); });
 }
 

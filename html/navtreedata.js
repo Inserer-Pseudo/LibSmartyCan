@@ -24,28 +24,33 @@
 */
 var NAVTREE =
 [
-  [ "libCANSmartyCoffre", "index.html", [
+  [ "LibCanSmartyCoffre", "index.html", [
     [ "Projet CANSmartyCoffre", "md__r_e_a_d_m_e.html", [
       [ "Configuration", "md__r_e_a_d_m_e.html#autotoc_md1", null ]
     ] ],
     [ "Classes", "annotated.html", [
-      [ "Class List", "annotated.html", "annotated_dup" ],
-      [ "Class Index", "classes.html", null ],
-      [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+      [ "Liste des classes", "annotated.html", "annotated_dup" ],
+      [ "Index des classes", "classes.html", null ],
+      [ "Membres de classe", "functions.html", [
+        [ "Tout", "functions.html", null ],
+        [ "Fonctions", "functions_func.html", null ]
       ] ]
     ] ],
-    [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
+    [ "Fichiers", "files.html", [
+      [ "Liste des fichiers", "files.html", "files_dup" ],
+      [ "Membres de fichier", "globals.html", [
+        [ "Tout", "globals.html", null ],
+        [ "Fonctions", "globals_func.html", null ],
+        [ "Variables", "globals_vars.html", null ]
+      ] ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"_c_a_n_smarty_coffre_8hpp.html"
+"_c_a_n_smarty_coffre_8cpp.html"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronisation';
-var SYNCOFFMSG = 'click to enable panel synchronisation';
+var SYNCONMSG = 'cliquez pour désactiver la synchronisation du panel';
+var SYNCOFFMSG = 'cliquez pour activer la synchronisation du panel';
